@@ -1,0 +1,36 @@
+server:
+  port: 8090
+spring:
+  cloud:
+    gateway:
+#      default-filters:
+#        -AddResponseHeader=source,yupi
+      routes:
+        - id: api_route
+          uri: http://localhost:8123
+          predicates:
+            - Path=/api/**
+
+  #        - id: path_route
+#          uri: https://baidu.com
+#          predicates:
+#            - Path=/baidu/**
+#        - id: path_route
+#          uri: https://yupi.icu
+#          predicates:
+#            - Path=/api/**
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: trace
+dubbo:
+  application:
+    name: dubbo-soringboot-demo-provide
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    id: nacos-registry
+    address: nacos://localhost:8848
